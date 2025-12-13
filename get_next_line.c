@@ -6,7 +6,7 @@
 /*   By: aouassar <aouassar@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:53:57 by aouassar          #+#    #+#             */
-/*   Updated: 2025/12/11 13:04:23 by aouassar         ###   ########.fr       */
+/*   Updated: 2025/12/13 13:04:07 by aouassar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,29 @@ static char	*free_and_null(char **stash, char *buffer)
 	}
 	free(buffer);
 	return (NULL);
+}
+static char	*extract_line(char *stash)
+{
+	char		*line;
+	size_t		length;
+	size_t		i;
+	
+	if (!stash || stash[0] == '\0')
+		return (NULL);
+	length = 0;
+	i = 0;
+	while (stash[length] != '\n' && stash[length])
+		length++;
+	if (stash[length] == '\n')
+		length++;
+	line = (char *)malloc(length + 1);
+	if (!line)
+		return (NULL);
+	while (i < length)
+	{
+		line[i] = stash[i];
+		i++;
+	}
+	line[i] = '\0';
+	return (line);
 }
