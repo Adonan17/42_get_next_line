@@ -6,7 +6,7 @@
 /*   By: aouassar <aouassar@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:54:34 by aouassar          #+#    #+#             */
-/*   Updated: 2025/12/13 15:27:48 by aouassar         ###   ########.fr       */
+/*   Updated: 2025/12/13 15:34:04 by aouassar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	i;
 
 	if (!s)
-		len = 0;
+		return (NULL);
 	slen = ft_strlen(s);
 	if (start >= slen)
 		len = 0;

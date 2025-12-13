@@ -6,7 +6,7 @@
 /*   By: aouassar <aouassar@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:53:57 by aouassar          #+#    #+#             */
-/*   Updated: 2025/12/13 13:53:46 by aouassar         ###   ########.fr       */
+/*   Updated: 2025/12/13 15:35:28 by aouassar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*get_next_line(int fd)
 static char	*read_and_stash(int fd, char *stash)
 {
 	char	*buffer;
+	char	*temp;
 	ssize_t	bytes_read;
 
 	buffer = (char *)malloc(BUFFER_SIZE + 1);
@@ -49,7 +50,9 @@ static char	*read_and_stash(int fd, char *stash)
 		if (bytes_read == 0)
 			break ;
 		buffer[bytes_read] = '\0';
-		stash = ft_strjoin(stash, buffer);
+		temp = ft_strjoin(stash, buffer);
+		free(stash);
+		stash = temp;
 		if (!stash)
 			return (free_and_null(&stash, buffer));
 	}
