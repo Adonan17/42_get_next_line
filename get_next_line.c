@@ -6,7 +6,7 @@
 /*   By: aouassar <aouassar@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/03 17:53:57 by aouassar          #+#    #+#             */
-/*   Updated: 2025/12/13 13:04:07 by aouassar         ###   ########.fr       */
+/*   Updated: 2025/12/13 13:53:46 by aouassar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*get_next_line(int fd)
 {
 	static char	*stash;
 	char		*line;
-	
+
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	stash = read_and_stash(fd, stash);
@@ -67,12 +67,13 @@ static char	*free_and_null(char **stash, char *buffer)
 	free(buffer);
 	return (NULL);
 }
+
 static char	*extract_line(char *stash)
 {
 	char		*line;
 	size_t		length;
 	size_t		i;
-	
+
 	if (!stash || stash[0] == '\0')
 		return (NULL);
 	length = 0;
@@ -91,4 +92,32 @@ static char	*extract_line(char *stash)
 	}
 	line[i] = '\0';
 	return (line);
+}
+
+static char	*clean_stash(char *stash)
+{
+	size_t	i;
+	size_t	len;
+	char	*leftovers;
+
+	if (!stash)
+		return (NULL);
+	i = 0;
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	if (!stash[i])
+	{
+		free(stash);
+		return (NULL);
+	}
+	i++;
+	len = ft_strlen(stash + i);
+	if (len == 0)
+	{
+		free(stash);
+		return (NULL);
+	}
+	leftovers = ft_substr(stash, i, len);
+	free(stash);
+	return (leftovers);
 }
